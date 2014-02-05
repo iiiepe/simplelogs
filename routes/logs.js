@@ -1,33 +1,39 @@
 var Log = require("../models/log");
+var Source = require("../models/source");
 
 /**
  * Get all logs
  */
 exports.index = function(req, res) {
-	console.log(req.params);
-	console.log(req.query);
-
 	var query = Log.find({});
 
+	// From and to
 	if(req.query.from && req.query.to && typeof req.query.from !== undefined && typeof req.query.to !== undefined) {
-		console.log("Filter");
 		query = query.where("timestamp").lte(req.query.to).gte(req.query.from);
 	}
+	
+	// type
+	if(req.query.type && typeof req.query.type !== undefined) {
+		query = query.where("type").equals(req.query.type);	
+	}
 
+	// Source
+	if(req.query.source && typeof req.query.source !== undefined) {
+		query = query.where("source").equals(req.query.source);
+	}
+
+	// Tags, either as a string or an array
 	if(req.query.tag && typeof req.query.tag !== undefined) {
-		console.log("Tags");
 		if(req.query.tag instanceof Array) {
-			console.log("is array");
 			query = query.where("tags").all(req.query.tag);
 		}
 		else {
-			console.log("is not array");
 			query = query.where("tags").all([req.query.tag]);	
 		}
 	}
 
+	// Limit
 	if(req.query.limit && typeof req.query.limit !== undefined) {
-		console.log("limit");
 		query = query.limit(req.query.limit);
 	}
 
@@ -71,27 +77,56 @@ exports.getLog = function(req, res) {
  * Create a log
  */
 exports.postLog = function(req, res) {
-	var body = req.body;
-
-	var log = new Log({ 
-		timestamp: Math.round(new Date().getTime() / 1000),
-		message: body.message,
-		type: body.type,
-		source: body.source,
-		tags: body.tags}
-	);
+	var body = req.body;	
 	
-	log.save(function (err, result) {
-		if(err) {
-			res.send(406, {
-				error: err
-			})
-		}
+	if(!body.accessKey || typeof body.accessKey === undefined || typeof body.accessKey === "undefined") {		
+		res.send(403, {error: "No access key defined"});
+	}
+	else {
+		Source.findOne({"name": body.source}, function(err, result) {
+			if(err) {
+				res.send(406, {
+					error: "There was a problem finding that access key"
+				})
+			}
 
-		if(result) {
-		  res.send(201, {
-		  	results: result
-		  });			
-		}
-	});
+			if(result) {
+				if(result.accessKey === body.accessKey) {
+					var log = new Log({ 
+						timestamp: Math.round(new Date().getTime() / 1000),
+						message: body.message,
+						type: body.type,
+						source: body.source,
+						tags: body.tags
+					});
+					
+					log.save(function (err, result) {
+						if(err) {
+							res.send(406, {
+								error: err
+							})
+						}
+				
+						if(result) {
+						  res.send(201, {
+								results: result
+						  });			
+						}
+					});
+				}
+				else {
+					console.log("The accessKey does not match the source of the log you're sending");
+					res.send(403, {
+						error: "The accessKey does not match the source of the log you're sending"
+					})
+				}
+			}
+			else {
+				console.log("There's no source with that name");
+				res.send(403, {
+					error: "There's no source with that name"
+				})
+			}
+		})
+	}
 }
