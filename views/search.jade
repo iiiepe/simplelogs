@@ -1,0 +1,46 @@
+extends layout
+
+block content
+	script(type="text/template", class="logRow")
+		| <table>
+		|	<thead>
+		|		<tr>
+		|			<th>Name</th>
+		|			<th>Hometown</th>
+		|			<th>Favorite Color</th>
+		|		</tr>
+		|	</thead>
+		|	<tbody>
+		|		<% _.each(logs, function(log) { %>
+		|			<tr>
+		|				<td><%= log.get('timestamp')) %></td>
+		|				<td><%= log.get('message')) %></td>
+		|				<td><%= log.get('source')) %></td>
+		|			</tr>
+		|		<% }); %>
+		|	</tbody>
+		| </table>
+
+	div.container-fluid
+		div.row
+			div.col-lg-12
+				h1.page-header= title
+		div.row
+			div.col-lg-12
+				div.panel.panel-default
+					div.panel-heading Timeline
+					div.panel-body
+						p Data goes here
+		div.row
+			div.col-lg-12
+				div.panel.panel-default
+					div.panel-heading Logs
+					div.panel-body
+						div.table-responsive
+							table.table.table-hover.table-bordered
+								thead
+									th Time
+									th Source
+									th Message
+								tbody
+
