@@ -6,14 +6,14 @@ block content
 			div.col-lg-12
 				div.col-lg-2 <%= timestamp %>
 				div.col-lg-10
+					div.pull-right
+						a(href="#").btn.btn-primary.btn-xs View
 					span.label.label-primary <%= source %>
 					<% _.each(tags, function(tag) { %>
 					span.label.label-default <%= tag %>
 					<% }) %>
 					span.label.label-info <%= type %>
 					div.message <%= message %>
-					div.pull-right
-						a(href="#").btn.btn-primary.btn-xs View
 		hr
 
 	div.container-fluid
