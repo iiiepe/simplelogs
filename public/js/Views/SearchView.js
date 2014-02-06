@@ -12,7 +12,9 @@ App.Views.SearchView = Backbone.View.extend({
 			success: function(col, response) {
 				_.each(response.results, function(result) {
 					self.$el.prepend(self.template(result));
-				})
+				});
+
+				new App.Views.GraphView(response.results);
 			},
 			error: function(col, error) {
 				console.log(col);
@@ -22,27 +24,38 @@ App.Views.SearchView = Backbone.View.extend({
 	}
 });
 
+/**
+ * Graph View
+ * Display a graph view with data from the SearchView
+ */
 App.Views.GraphView = Backbone.View.extend({
 	el: ".graph",
 	tagName: "div",
 	initialize: function(data) {
-		console.log(data);
+		this.render(data);
 	},
-	render: function() {
-		// Morris.Bar({
-		//   element: 'bar-example',
-		//   data: [
-		//     { y: '2006', a: 100, b: 90 },
-		//     { y: '2007', a: 75,  b: 65 },
-		//     { y: '2008', a: 50,  b: 40 },
-		//     { y: '2009', a: 75,  b: 65 },
-		//     { y: '2010', a: 50,  b: 40 },
-		//     { y: '2011', a: 75,  b: 65 },
-		//     { y: '2012', a: 100, b: 90 }
-		//   ],
-		//   xkey: 'y',
-		//   ykeys: ['a', 'b'],
-		//   labels: ['Series A', 'Series B']
-		// });
+	render: function(data) {
+		var graphData = []
+		_.each(data, function(row) {
+			graphData.push({
+				y: row.timestamp,
+				timestamp: 1,
+				source: row.source,
+				type: row.type
+			});
+		});
+
+		Morris.Bar({
+		  element: 'graph-container',
+		  data: graphData,
+		  xkey: 'y',
+		  ykeys: ['timestamp'],
+		  labels: ['Source'],
+		  stacked: true,
+		  hoverCallback: function(index, options, content) {
+		  	var row = options.data[index];
+		  	return row.type + " from " + row.source;
+		  }
+		});
 	}
 });
