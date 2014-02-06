@@ -4,3 +4,4 @@ var App = App || {};
 		App.Collections = {};
 		App.Views = {};
 		App.Globals = {};
+		App.io = io.connect();

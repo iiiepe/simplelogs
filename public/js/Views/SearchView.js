@@ -4,6 +4,7 @@ App.Views.SearchView = Backbone.View.extend({
 	template: _.template($(".logRow").html()),
 	initialize: function() {
 		this.render();
+		this.listen();
 	},
 	render: function() {
 		var self = this;
@@ -21,6 +22,13 @@ App.Views.SearchView = Backbone.View.extend({
 				console.log(error);
 			}
 		});
+	},
+	listen: function() {
+		var self = this;
+		App.io.on("logs:new", function(data) {
+			console.log(data);
+			self.$el.prepend(self.template(data));
+		})
 	}
 });
 
@@ -44,6 +52,16 @@ App.Views.GraphView = Backbone.View.extend({
 				type: row.type
 			});
 		});
+
+		App.io.on("logs:new", function(data) {
+			console.log(data);
+			graphData.push({
+				y: data.timestamp,
+				timestamp: 1,
+				source: data.source,
+				type: data.type
+			});
+		})
 
 		Morris.Bar({
 		  element: 'graph-container',

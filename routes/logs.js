@@ -1,5 +1,6 @@
 var Log = require("../models/log");
 var Source = require("../models/source");
+var events = require("../lib/events").events;
 
 /**
  * Get all logs
@@ -108,6 +109,8 @@ exports.postLog = function(req, res) {
 						}
 				
 						if(result) {
+							events.emit("logs:new", result);
+							
 						  res.send(201, {
 								results: result
 						  });			

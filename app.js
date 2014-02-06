@@ -12,8 +12,12 @@ var search = require("./routes/search");
 var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
+var io = require("socket.io");
 
 var app = express();
+var server = http.createServer(app);
+var io = io.listen(server, {log: true});
+require("./lib/socket")(io);
 
 mongoose.connect('mongodb://localhost/simplelogs');
 
@@ -48,6 +52,6 @@ app.delete('/api/sources/:id', sources.deleteSource);
 
 app.get("/search", search.index);
 
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
