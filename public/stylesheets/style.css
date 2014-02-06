@@ -6,3 +6,16 @@ body {
 a {
   color: #00B7FF;
 }
+
+div.log-row {
+	
+}
+
+div.message {
+	font-size: 95%;
+	padding-top: 0.5em;
+}
+
+.label {
+	margin-right: 0.25em;
+}
