@@ -15,13 +15,14 @@ var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
 var io = require("socket.io");
+var config = require("./config/config.json");
 
 var app = express();
 var server = http.createServer(app);
 var io = io.listen(server, {log: true});
 require("./lib/socket")(io);
 
-mongoose.connect('mongodb://localhost/simplelogs');
+mongoose.connect(config.mongodburi);
 
 // all environments
 app.set('port', process.env.PORT || 3000);

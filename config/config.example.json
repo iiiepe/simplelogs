@@ -1,0 +1,3 @@
+{
+	"mongodburi": "mongodb://localhost/simplelogs"
+}
