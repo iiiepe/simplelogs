@@ -60,6 +60,8 @@ App.Views.SearchView = Backbone.View.extend({
 			content: view.render(log),
 			cancelText: false,
 			okText: "Close",
+			animate: true,
+			enterTriggersOk: true,
 		}).open();
 	}
 });

@@ -14,24 +14,23 @@ div#wrapper
       div.collapse.navbar-collapse#navbar
         ul.nav.navbar-nav
           li.active
-            a(href="/search") Search
-          li.dropdown
-            a(href="#", data-toggle="dropdown").dropdown-toggle
-              span Dropdown b.caret
-            ul.dropdown-menu
-              li
-                a(href="#") Action
-              li
-                a(href="#") Action
-              li
-                a(href="#") Action
-              li.divider
-        ul.nav.navbar-nav.navbar-right
+            a(href="/dashboard") Dashboard
           li
-            a(href="#")
+            a(href="/sources") Sources
+        ul.nav.navbar-nav.navbar-right
           li.dropdown
-            a(href="#", data-toggle="dropdown").dropdown-toggle
-              b.caret
+            a(href="/help", data-toggle="dropdown").dropdown-toggle
+              span Help
+                b.caret
             ul.dropdown-menu
               li
-                a(href="#") Help
+                a(href="/help/api") API
+          li.dropdown
+            a(href="#", data-toggle="dropdown").dropdown-toggle
+              span Me
+                b.caret
+            ul.dropdown-menu
+              li
+                a(href="#") Settings
+              li
+                a(href="#") Log out

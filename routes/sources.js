@@ -43,9 +43,7 @@ exports.postSource = function(req, res) {
   var body = req.body;
 	
 	if(!body.name || typeof body.name === undefined || typeof body.name === "undefined") {
-		res.send(406, {
-			error: "Name is required and must be unique"
-		})
+		res.send(406, "Name is required and must be unique")
 	}
 	
 	Source.findOne({"name": body.name}, function(err, result) {
@@ -56,8 +54,12 @@ exports.postSource = function(req, res) {
 		else {
 			var timestamp = Math.round(new Date().getTime() / 1000);
 			var accessKey = secure.encrypt(timestamp.toString());
+
+			// Not removing accents
+			var name = body.name.toLowerCase().replace(/[\*\^\'\!]/g, '').split(' ').join('-');
+
 			var source = new Source({
-				name: body.name,
+				name: name,
 				accessKey: accessKey
 			});
 			
