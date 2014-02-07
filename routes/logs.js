@@ -41,15 +41,11 @@ exports.index = function(req, res) {
 	query.exec(function(err, results) {
 		if(err) {
 			console.log(err);
-			res.send(406, {
-				error: err
-			})
+			res.send(406, err)
 		}
 
 		if(results) {
-			res.send(200, {
-				results: results
-			})
+			res.send(200, results);
 		}
 	});
 }
@@ -61,15 +57,11 @@ exports.getLog = function(req, res) {
 	var id = req.params.id;
 	Log.findOne({_id: id}, function(err, result) {
 		if(err) {
-			res.send(406, {
-				error: err
-			})
+			res.send(406, err);
 		}
 
 		if(result) {
-			res.send(200, {
-				results: result
-			})
+			res.send(200, result);
 		}
 	})
 }
@@ -81,14 +73,12 @@ exports.postLog = function(req, res) {
 	var body = req.body;	
 	
 	if(!body.accessKey || typeof body.accessKey === undefined || typeof body.accessKey === "undefined") {		
-		res.send(403, {error: "No access key defined"});
+		res.send(403, "No access key defined");
 	}
 	else {
 		Source.findOne({"name": body.source}, function(err, result) {
 			if(err) {
-				res.send(406, {
-					error: "There was a problem finding that access key"
-				})
+				res.send(406, "There was a problem finding that access key")
 			}
 
 			if(result) {
@@ -103,32 +93,23 @@ exports.postLog = function(req, res) {
 					
 					log.save(function (err, result) {
 						if(err) {
-							res.send(406, {
-								error: err
-							})
+							res.send(406, err);
 						}
 				
 						if(result) {
 							events.emit("logs:new", result);
-							
-						  res.send(201, {
-								results: result
-						  });			
+						  res.send(201, result);			
 						}
 					});
 				}
 				else {
 					console.log("The accessKey does not match the source of the log you're sending");
-					res.send(403, {
-						error: "The accessKey does not match the source of the log you're sending"
-					})
+					res.send(403, "The accessKey does not match the source of the log you're sending")
 				}
 			}
 			else {
 				console.log("There's no source with that name");
-				res.send(403, {
-					error: "There's no source with that name"
-				})
+				res.send(403, "There's no source with that name")
 			}
 		})
 	}

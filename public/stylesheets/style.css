@@ -19,3 +19,8 @@ div.message {
 .label {
 	margin-right: 0.25em;
 }
+
+div.vertical-space {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}

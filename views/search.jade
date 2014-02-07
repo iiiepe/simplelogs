@@ -7,7 +7,7 @@ block content
 				div.col-lg-2 <%= timestamp %>
 				div.col-lg-10
 					div.pull-right
-						a(href="#").btn.btn-primary.btn-xs View
+						<a href="#" data-id=<%= _id %> class="btn btn-primary btn-xs view-log">View</a>
 					span.label.label-primary <%= source %>
 					<% _.each(tags, function(tag) { %>
 					span.label.label-default <%= tag %>
@@ -16,17 +16,49 @@ block content
 					div.message <%= message %>
 		hr
 
+	script(type="text/template", class="logDetail")
+		div.row
+			div.col-lg-2 
+				span.label.label-info Source
+			div.col-lg-9 
+				span.label.label-primary <%= source %>
+		div.vertical-space
+		div.row
+			div.col-lg-2 
+				span.label.label-info Tags
+			div.col-lg-9 
+				<% _.each(tags, function(tag) { %>
+				span.label.label-default <%= tag %>
+				<% }) %>
+		div.vertical-space
+		div.row
+			div.col-lg-2 
+				span.label.label-info Type
+			div.col-lg-9 
+				span.label.label-warning <%= type %>
+		div.vertical-space
+		div.row
+			div.col-lg-2 
+				span.label.label-info Created
+			div.col-lg-9 
+				span.label.label-warning <%= timestamp %>
+		hr
+		div.row
+			div.col-lg-2 
+				span.label.label-info Message
+			div.col-lg-9 <%= message %>
+
 	div.container-fluid
 		div.row
 			div.col-lg-12
 				h1.page-header= title
-		div.row
-			div.col-lg-12
-				div.panel.panel-default
-					div.panel-heading Timeline
-					div.panel-body
-						div.graph
-							div(style="height:300px")#graph-container
+		//- div.row
+		//- 	div.col-lg-12
+		//- 		div.panel.panel-default
+		//- 			div.panel-heading Timeline
+		//- 			div.panel-body
+		//- 				div.graph
+		//- 					div(style="height:300px")#graph-container
 		div.row
 			div.col-lg-12
 				div.panel.panel-default

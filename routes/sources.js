@@ -11,15 +11,11 @@ exports.index = function(req, res) {
 	
 	query.exec(function(err, result) {
 		if(err) {
-			res.send(406, {
-				error: err
-			})
+			res.send(406, err);
 		}
 		
 		if(result) {
-			res.send(200, {
-				results: result
-			})
+			res.send(200, result);
 		}
 	});
 }
@@ -32,17 +28,13 @@ exports.getSource = function(req, res) {
 	
 	var query = Source.findOne({"name": name}, function(err, result) {
 		if(err) {
-			res.send(404, {
-				error: err
-			})
+			res.send(404, err);
 		}
 		
 		if(result) {
 			var send = result;
 
-			res.send(200, {
-				results: send
-			})
+			res.send(200, send);
 		}
 	})
 }
@@ -58,9 +50,7 @@ exports.postSource = function(req, res) {
 	
 	Source.findOne({"name": body.name}, function(err, result) {
 		if(err || result) {
-			res.send(406, {
-				error: "That name already exists, it must be unique"
-			})
+			res.send(406, "That name already exists, it must be unique");
 		}
 		
 		else {
@@ -73,14 +63,10 @@ exports.postSource = function(req, res) {
 			
 			source.save(function(err, result) {
 				if(err) {
-					res.send(406, {
-						error: err
-					})
+					res.send(406, err);
 				}
 				if(result) {
-					res.send(201, {
-						results: result
-					})
+					res.send(201, result);
 				}
 			})
 		}
