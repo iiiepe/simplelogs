@@ -37,6 +37,9 @@ exports.index = function(req, res) {
 	if(req.query.limit && typeof req.query.limit !== undefined) {
 		query = query.limit(req.query.limit);
 	}
+	else {
+		query = query.limit(100);
+	}
 
 	query.exec(function(err, results) {
 		if(err) {
