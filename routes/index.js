@@ -4,5 +4,6 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+	// Redirect to the dashboard
+  res.redirect("/dashboard");
 };

@@ -11,15 +11,11 @@ exports.index = function(req, res) {
 	
 	query.exec(function(err, result) {
 		if(err) {
-			res.send(406, {
-				error: err
-			})
+			res.send(406, err);
 		}
 		
 		if(result) {
-			res.send(200, {
-				results: result
-			})
+			res.send(200, result);
 		}
 	});
 }
@@ -32,17 +28,13 @@ exports.getSource = function(req, res) {
 	
 	var query = Source.findOne({"name": name}, function(err, result) {
 		if(err) {
-			res.send(404, {
-				error: err
-			})
+			res.send(404, err);
 		}
 		
 		if(result) {
 			var send = result;
 
-			res.send(200, {
-				results: send
-			})
+			res.send(200, send);
 		}
 	})
 }
@@ -51,36 +43,32 @@ exports.postSource = function(req, res) {
   var body = req.body;
 	
 	if(!body.name || typeof body.name === undefined || typeof body.name === "undefined") {
-		res.send(406, {
-			error: "Name is required and must be unique"
-		})
+		res.send(406, "Name is required and must be unique")
 	}
 	
 	Source.findOne({"name": body.name}, function(err, result) {
 		if(err || result) {
-			res.send(406, {
-				error: "That name already exists, it must be unique"
-			})
+			res.send(406, "That name already exists, it must be unique");
 		}
 		
 		else {
 			var timestamp = Math.round(new Date().getTime() / 1000);
 			var accessKey = secure.encrypt(timestamp.toString());
+
+			// Not removing accents
+			var name = body.name.toLowerCase().replace(/[\*\^\'\!]/g, '').split(' ').join('-');
+
 			var source = new Source({
-				name: body.name,
+				name: name,
 				accessKey: accessKey
 			});
 			
 			source.save(function(err, result) {
 				if(err) {
-					res.send(406, {
-						error: err
-					})
+					res.send(406, err);
 				}
 				if(result) {
-					res.send(201, {
-						results: result
-					})
+					res.send(201, result);
 				}
 			})
 		}

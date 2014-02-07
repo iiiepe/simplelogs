@@ -8,11 +8,17 @@ var routes = require('./routes');
 var logs = require('./routes/logs');
 var user = require('./routes/user');
 var sources = require('./routes/sources');
+var sourcesPages = require("./routes/sourcesPages");
+var dashboard = require("./routes/dashboard");
 var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
+var io = require("socket.io");
 
 var app = express();
+var server = http.createServer(app);
+var io = io.listen(server, {log: true});
+require("./lib/socket")(io);
 
 mongoose.connect('mongodb://localhost/simplelogs');
 
@@ -45,6 +51,9 @@ app.get('/api/sources/:name', sources.getSource);
 app.post('/api/sources', sources.postSource);
 app.delete('/api/sources/:id', sources.deleteSource);
 
-http.createServer(app).listen(app.get('port'), function(){
+app.get("/dashboard", dashboard.index);
+app.get("/sources", sourcesPages.getSources);
+
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
