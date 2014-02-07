@@ -41,6 +41,9 @@ exports.index = function(req, res) {
 		query = query.limit(100);
 	}
 
+	// sort by timestamp
+	query = query.sort({timestamp: -1});
+
 	query.exec(function(err, results) {
 		if(err) {
 			console.log(err);
