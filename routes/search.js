@@ -1,5 +1,22 @@
+var Source = require("../models/source");
+
+
 exports.index = function(req, res) {
-	res.render("search", {
-		title: "Search"
-	})
+	var query = Source.find({}).limit(50);
+	
+	query.exec(function(err, result) {
+		if(err) {
+			res.send(406, err);
+		}
+		
+		if(result) {
+			res.render("search", {
+				title: "Search",
+				sources: result
+			})
+		}
+	});
+
+
+
 }

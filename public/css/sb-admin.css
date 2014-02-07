@@ -3,7 +3,7 @@
 /* ------------------------------- */
 
  body {
-    background-color: #fff;
+    background-color: #f8f8f8;
 }
 
 /* Wrappers */
@@ -20,7 +20,7 @@
     background-color: #fff;
 }
 
-/*@media(min-width:768px) {
+@media(min-width:768px) {
     #page-wrapper {
         position: inherit;
         margin: 0 0 0 250px;
@@ -28,7 +28,7 @@
         min-height: 1300px;
         border-left: 1px solid #e7e7e7;
     }
-}*/
+}
 
 .navbar-static-side ul li {
     border-bottom: 1px solid #e7e7e7;
