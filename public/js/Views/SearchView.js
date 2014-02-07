@@ -34,7 +34,7 @@ App.Views.SearchView = Backbone.View.extend({
 
 		// Clean the $el to prevent duplicates
 		self.$el.empty();
-		
+
 		// new App.Views.GraphView({collection: this.collection});
 	},
 	renderLog: function(response) {
@@ -57,7 +57,9 @@ App.Views.SearchView = Backbone.View.extend({
 
 		var view = new App.Views.LogView();
 		var modal = new Backbone.BootstrapModal({
-			content: view.render(log)
+			content: view.render(log),
+			cancelText: false,
+			okText: "Close",
 		}).open();
 	}
 });
