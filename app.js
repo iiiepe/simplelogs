@@ -10,6 +10,7 @@ var user = require('./routes/user');
 var sources = require('./routes/sources');
 var sourcesPages = require("./routes/sourcesPages");
 var dashboard = require("./routes/dashboard");
+var help = require("./routes/help");
 var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
@@ -53,6 +54,8 @@ app.delete('/api/sources/:id', sources.deleteSource);
 
 app.get("/dashboard", dashboard.index);
 app.get("/sources", sourcesPages.getSources);
+
+app.get("/help/api", help.api);
 
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
