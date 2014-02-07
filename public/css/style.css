@@ -11,7 +11,7 @@ div.log-row {
 	
 }
 
-div.message {
+div.message, div.timestamp {
 	font-size: 95%;
 	padding-top: 0.5em;
 }

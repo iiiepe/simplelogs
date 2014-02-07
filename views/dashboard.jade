@@ -4,7 +4,8 @@ block content
 	script(type="text/template", class="logRow")
 		div.row.log-row
 			div.col-lg-12
-				div.col-lg-2 <%= moment(timestamp*1000).format('lll') %>
+				div.col-lg-2 
+					div.timestamp <%= moment(timestamp*1000).format('lll') %>
 				div.col-lg-10
 					div.pull-right
 						<a href="#" data-id=<%= _id %> class="btn btn-primary btn-xs view-log">View</a>
@@ -23,13 +24,13 @@ block content
 		div.row
 			div.col-lg-2 
 				span.label.label-info Source
-			div.col-lg-9 
+			div.col-lg-10
 				span.label.label-primary <%= source %>
 		div.vertical-space
 		div.row
 			div.col-lg-2 
 				span.label.label-info Tags
-			div.col-lg-9 
+			div.col-lg-10
 				<% _.each(tags, function(tag) { %>
 				span.label.label-default <%= tag %>
 				<% }) %>
@@ -37,19 +38,19 @@ block content
 		div.row
 			div.col-lg-2 
 				span.label.label-info Type
-			div.col-lg-9 
+			div.col-lg-10
 				span.label.label-warning <%= type %>
 		div.vertical-space
 		div.row
 			div.col-lg-2 
 				span.label.label-info Created
-			div.col-lg-9 
+			div.col-lg-10
 				span.label.label-warning <%= moment(timestamp*1000).format('LLLL') %>
 		hr
 		div.row
-			div.col-lg-2 
+			div.col-lg-2
 				span.label.label-info Message
-			div.col-lg-9 <%= message %>
+			div.col-lg-10 <%= message %>
 
 	nav(role="navigation").navbar-default.navbar-static-side
 		ul.nav#side-menu
