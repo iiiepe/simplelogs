@@ -25,7 +25,8 @@ App.Views.SearchView = Backbone.View.extend({
 	listen: function() {
 		var self = this;
 		App.io.on("logs:new", function(data) {
-			self.$el.prepend(self.template(data));
+			// Add the new log to the collection
+			self.collection.add(data);
 		})
 	},
 	viewLog: function(e) {

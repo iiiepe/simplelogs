@@ -9,7 +9,8 @@
     "express": "3.4.4",
     "jade": "*",
     "mongoose": "*",
-    "socket.io": "*"
+    "socket.io": "*",
+    "moment": "2.5.1"
   },
   "devDependencies": {
     "grunt": "~0.4.2"

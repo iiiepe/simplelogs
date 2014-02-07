@@ -4,7 +4,7 @@ block content
 	script(type="text/template", class="logRow")
 		div.row.log-row
 			div.col-lg-12
-				div.col-lg-2 <%= timestamp %>
+				div.col-lg-2 <%= moment(timestamp*1000).format('lll') %>
 				div.col-lg-10
 					div.pull-right
 						<a href="#" data-id=<%= _id %> class="btn btn-primary btn-xs view-log">View</a>
@@ -41,7 +41,7 @@ block content
 			div.col-lg-2 
 				span.label.label-info Created
 			div.col-lg-9 
-				span.label.label-warning <%= timestamp %>
+				span.label.label-warning <%= moment(timestamp*1000).format('LLLL') %>
 		hr
 		div.row
 			div.col-lg-2 
