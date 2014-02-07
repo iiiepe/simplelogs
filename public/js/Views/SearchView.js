@@ -20,7 +20,7 @@ App.Views.SearchView = Backbone.View.extend({
 		}
 		else {
 			this.collection.fetch();
-			$("h1.page-header").text("Search");
+			$("h1.page-header").text("Dashboard");
 		}
 
 		this.render();
@@ -30,6 +30,11 @@ App.Views.SearchView = Backbone.View.extend({
 		this.collection.on("reset", this.render, this);
 	},
 	render: function() {
+		var self = this;
+
+		// Clean the $el to prevent duplicates
+		self.$el.empty();
+		
 		// new App.Views.GraphView({collection: this.collection});
 	},
 	renderLog: function(response) {

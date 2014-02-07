@@ -1,6 +1,5 @@
 var Source = require("../models/source");
 
-
 exports.index = function(req, res) {
 	var query = Source.find({}).limit(50);
 	
@@ -10,13 +9,10 @@ exports.index = function(req, res) {
 		}
 		
 		if(result) {
-			res.render("search", {
-				title: "Search",
+			res.render("dashboard", {
+				title: "Dashboard",
 				sources: result
 			})
 		}
 	});
-
-
-
 }

@@ -54,18 +54,18 @@ block content
 	nav(role="navigation").navbar-default.navbar-static-side
 		ul.nav#side-menu
 			li
-				a(href="/search")
+				a(href="/dashboard")
 					i.fa.fa-dashboard.fa-fw
 					span Dashboard
 			li
-				a(href="/search")
+				a(href="/dashboard")
 					i.fa.fa-sitemap.fa-fw
 					span Sources
 						span.fa.arrow
 				ul.nav.nav-second-level
 					each source in sources
 						li
-							a(href="/search#source/"+source.name) #{source.name}
+							a(href="/dashboard#source/"+source.name) #{source.name}
 	div#page-wrapper
 		div.container-fluid
 			div.row
