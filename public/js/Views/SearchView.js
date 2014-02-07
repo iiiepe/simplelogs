@@ -5,9 +5,23 @@ App.Views.SearchView = Backbone.View.extend({
 		"click a.view-log": "viewLog"
 	},
 	template: _.template($(".logRow").html()),
-	initialize: function() {
+	initialize: function(data) {
 		this.collection = new App.Collections.Logs();
-		this.collection.fetch();
+		if(data && typeof data !== undefined) {
+			this.collection.fetch({data: data});
+
+			// Set the page title
+			var search = null;
+			for(var name in data) {
+				search = data[name];
+			}
+
+			$("h1.page-header").text("Search by " + search);
+		}
+		else {
+			this.collection.fetch();
+			$("h1.page-header").text("Search");
+		}
 
 		this.render();
 		this.listen();

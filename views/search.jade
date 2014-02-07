@@ -8,11 +8,14 @@ block content
 				div.col-lg-10
 					div.pull-right
 						<a href="#" data-id=<%= _id %> class="btn btn-primary btn-xs view-log">View</a>
-					span.label.label-primary <%= source %>
+					span.label.label-primary
+						<a href="#source/<%= source %>"><%= source %></a>
 					<% _.each(tags, function(tag) { %>
-					span.label.label-default <%= tag %>
+					span.label.label-default 
+						<a href="#tag/<%= tag %>"><%= tag %></a>
 					<% }) %>
-					span.label.label-info <%= type %>
+					span.label.label-info 
+						<a href="#type/<%= type %>"><%= type %></a>
 					div.message <%= message %>
 		hr
 

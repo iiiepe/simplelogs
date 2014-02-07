@@ -20,6 +20,11 @@ div.message {
 	margin-right: 0.25em;
 }
 
+.label a {
+	color: #fff;
+	text-decoration: none;
+}
+
 div.vertical-space {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
