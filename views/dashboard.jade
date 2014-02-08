@@ -3,21 +3,23 @@ extends layout
 block content
 	script(type="text/template", class="logRow")
 		div.row.log-row
-			div.col-lg-12
-				div.col-lg-2 
-					div.timestamp <%= moment(timestamp*1000).format('lll') %>
-				div.col-lg-10
-					div.pull-right
-						<a href="#" data-id=<%= _id %> class="btn btn-primary btn-xs view-log">View</a>
+			div.col-lg-3
+				div.timestamp <%= moment(timestamp*1000).format('lll') %>
+			div.col-lg-8
+				div.labels.row
 					span.label.label-primary
 						<a href="#source/<%= source %>"><%= source %></a>
 					<% _.each(tags, function(tag) { %>
-					span.label.label-default 
+					span.label.label-default.label-sm
 						<a href="#tag/<%= tag %>"><%= tag %></a>
 					<% }) %>
 					span.label.label-info 
 						<a href="#type/<%= type %>"><%= type %></a>
+				div.row
 					div.message <%= message %>
+			div.col-lg-1
+				div.pull-right
+					<a href="#" data-id=<%= _id %> class="btn btn-primary btn-xs view-log">View</a>
 		hr
 
 	script(type="text/template", class="logDetail")
@@ -27,8 +29,8 @@ block content
 			div.col-lg-10
 				span.label.label-primary <%= source %>
 		div.vertical-space
-		div.row
-			div.col-lg-2 
+		div.row.labels
+			div.col-lg-2
 				span.label.label-info Tags
 			div.col-lg-10
 				<% _.each(tags, function(tag) { %>
