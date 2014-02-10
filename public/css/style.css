@@ -40,3 +40,7 @@ div.vertical-space {
     min-height: 568px;
     background-color: #fff;
 }
+
+.modal-message {
+	word-wrap: break-word;
+}

@@ -42,7 +42,7 @@ exports.index = function(req, res) {
 	}
 
 	// sort by timestamp
-	query = query.sort({timestamp: 1});
+	query = query.sort({'_id': -1});
 
 	query.exec(function(err, results) {
 		if(err) {

@@ -26,7 +26,8 @@ App.Views.SearchView = Backbone.View.extend({
 		this.render();
 		this.listen();
 
-		this.collection.on("add", this.renderLog, this);
+		this.collection.on("add", this.appendLog, this);
+		this.collection.on("addToTop", this.prependLog, this);
 		this.collection.on("reset", this.render, this);
 	},
 	render: function() {
@@ -37,15 +38,19 @@ App.Views.SearchView = Backbone.View.extend({
 
 		// new App.Views.GraphView({collection: this.collection});
 	},
-	renderLog: function(response) {
+	appendLog: function(response) {
 		var self = this;
-		self.$el.prepend(self.template(response.toJSON()));
+		self.$el.append(self.template(response.toJSON()));
+	},
+	prependLog: function(response) {
+		var self = this;
+		self.$el.prepend(self.template(response));
 	},
 	listen: function() {
 		var self = this;
 		App.io.on("logs:new", function(data) {
 			// Add the new log to the collection
-			self.collection.add(data);
+			self.collection.trigger("addToTop", data);
 		})
 	},
 	viewLog: function(e) {

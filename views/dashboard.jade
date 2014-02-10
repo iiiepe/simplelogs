@@ -10,8 +10,8 @@ block content
 					span.label.label-primary
 						<a href="#source/<%= source %>"><%= source %></a>
 					<% _.each(tags, function(tag) { %>
-					span.label.label-default.label-sm
-						<a href="#tag/<%= tag %>"><%= tag %></a>
+					span.label.label-default
+						<a href="#tag/<%= tag %>"><%= tag.substring(0, 30) %></a>
 					<% }) %>
 					span.label.label-info 
 						<a href="#type/<%= type %>"><%= type %></a>
@@ -27,21 +27,24 @@ block content
 			div.col-lg-2 
 				span.label.label-info Source
 			div.col-lg-10
-				span.label.label-primary <%= source %>
+				span.label.label-primary
+					<a href="#source/<%= source %>"><%= source %></a>
 		div.vertical-space
 		div.row.labels
 			div.col-lg-2
 				span.label.label-info Tags
 			div.col-lg-10
 				<% _.each(tags, function(tag) { %>
-				span.label.label-default <%= tag %>
+				span.label.label-default
+					<a href="#tag/<%= tag %>" title="<%= tag %>"><%= tag.substring(0, 30) %></a>
 				<% }) %>
 		div.vertical-space
 		div.row
 			div.col-lg-2 
 				span.label.label-info Type
 			div.col-lg-10
-				span.label.label-warning <%= type %>
+				span.label.label-warning
+					<a href="#type/<%= type %>"><%= type %></a>
 		div.vertical-space
 		div.row
 			div.col-lg-2 
@@ -52,7 +55,7 @@ block content
 		div.row
 			div.col-lg-2
 				span.label.label-info Message
-			div.col-lg-10 <%= message %>
+			div.col-lg-10.modal-message <%= message %>
 
 	nav(role="navigation").navbar-default.navbar-static-side
 		ul.nav#side-menu
