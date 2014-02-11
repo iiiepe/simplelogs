@@ -41,6 +41,6 @@ div.vertical-space {
     background-color: #fff;
 }
 
-.modal-message {
+.modal-message, .message {
 	word-wrap: break-word;
 }
