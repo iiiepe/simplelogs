@@ -6,6 +6,9 @@ App.Views.SearchView = Backbone.View.extend({
 	},
 	template: _.template($(".logRow").html()),
 	initialize: function(data) {
+		for(var key in data) {
+			this.scope = key;
+		}
 		this.collection = new App.Collections.Logs();
 		if(data && typeof data !== undefined) {
 			this.collection.fetch({data: data});
@@ -49,8 +52,31 @@ App.Views.SearchView = Backbone.View.extend({
 	listen: function() {
 		var self = this;
 		App.io.on("logs:new", function(data) {
+			// Decide to add or not the new log
 			// Add the new log to the collection
-			self.collection.trigger("addToTop", data);
+			if(Backbone.history.fragment) {
+				var fragments = Backbone.history.fragment.split("/");
+				for(var i in fragments) {
+					var first = fragments[0];
+					var second = fragments[1];
+
+					if(data[first] == "tags") {
+						// Loop
+						_.each(data.tags, function(tag) {
+							if(second == tag) {
+								self.collection.trigger("addToTop", data);		
+							}
+						})
+					}
+					if(data[first] == second) {
+						self.collection.trigger("addToTop", data);
+					}					
+				}
+			}
+			else {
+				self.collection.trigger("addToTop", data);
+			}
+
 		})
 	},
 	viewLog: function(e) {
