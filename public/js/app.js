@@ -1,4 +1,4 @@
 (function() {
-	new App.Routers.Router();
+	App.Globals.Router = new App.Routers.Router();
 	Backbone.history.start({pushState: false});
 })();
