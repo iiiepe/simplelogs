@@ -1,6 +1,6 @@
 var Log = require("../models/log");
 var Source = require("../models/source");
-var events = require("../lib/events").events;
+var app = require("../app");
 
 /**
  * Get all logs
@@ -76,9 +76,9 @@ exports.getLog = function(req, res) {
  * Create a log
  */
 exports.postLog = function(req, res) {
-	var body = req.body;	
-	
-	if(!body.accessKey || typeof body.accessKey === undefined || typeof body.accessKey === "undefined") {		
+  var body = req.body;	
+  
+  if(!body.accessKey || typeof body.accessKey === undefined || typeof body.accessKey === "undefined") {		
 		res.send(403, "No access key defined");
 	}
 	else {
@@ -103,7 +103,7 @@ exports.postLog = function(req, res) {
 						}
 				
 						if(result) {
-							events.emit("logs:new", result);
+                          app.emit("logs:new", result);
 						  res.send(201, result);			
 						}
 					});
