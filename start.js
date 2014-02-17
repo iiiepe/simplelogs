@@ -5,17 +5,14 @@
 
 var express = require('express');
 var http = require('http');
-var path = require('path');
 var mongoose = require('mongoose');
 var config = require("./config/config.json");
 
-var routes = require('./routes');
-var logs = require('./routes/logs');
-var user = require('./routes/user');
-var sources = require('./routes/sources');
-var sourcesPages = require("./routes/sourcesPages");
-var dashboard = require("./routes/dashboard");
-var help = require("./routes/help");
+/** To be deleted */
+// var routes = require('./routes');
+// var sourcesPages = require("./routes/sourcesPages");
+// var dashboard = require("./routes/dashboard");
+/** Till here */
 
 var app = require("./app");
 var server = http.createServer(app);
@@ -23,43 +20,27 @@ var io = require("./lib/socket")(server);
 
 mongoose.connect(config.mongodburi);
 
-// all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+/** 
+ * @todo dynamic lookup of modules 
+ */
+var usersAPI = require("./modules/users-api");
+var logsAPI = require('./modules/logs-api');
+var sourcesAPI = require("./modules/sources-api");
+var sources = require("./modules/sources");
+var help = require("./modules/help");
 
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
+app.use(usersAPI);
+app.use(sourcesAPI);
+app.use(logsAPI);
+app.use(help);
+app.use(sources);
 
 /**
  * Routes
  */
-app.get('/', routes.index);
-app.get('/users', user.list);
+// app.get('/', routes.index);
 
-app.get('/api/logs', logs.index);
-app.get('/api/logs/:id', logs.getLog);
-app.post('/api/logs', logs.postLog);
-
-app.get('/api/sources', sources.index);
-app.get('/api/sources/:name', sources.getSource);
-app.post('/api/sources', sources.postSource);
-app.delete('/api/sources/:id', sources.deleteSource);
-
-app.get("/dashboard", dashboard.index);
-app.get("/sources", sourcesPages.getSources);
-
-app.get("/help/api", help.api);
-
+// app.get("/dashboard", dashboard.index);
 
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

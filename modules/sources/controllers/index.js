@@ -1,5 +1,7 @@
-var Source = require("../models/source");
+exports = module.exports;
+var app = require("../../../app");
 
+var Source = require("../models");
 
 exports.getSources = function(req, res) {
 	var query = Source.find({});

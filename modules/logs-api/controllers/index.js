@@ -1,6 +1,8 @@
-var Log = require("../models/log");
-var Source = require("../models/source");
-var app = require("../app");
+exports = module.exports;
+
+var Log = require("../models");
+var Source = require("../../sources-api/models");
+var app = require("../../../app");
 
 /**
  * Get all logs

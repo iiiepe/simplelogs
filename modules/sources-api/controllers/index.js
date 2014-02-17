@@ -1,5 +1,10 @@
-var Source = require("../models/source");
-var Secure = require("../lib/secure");
+exports = module.exports;
+
+
+var app = require("../../../app");
+
+var Source = require("../models");
+var Secure = require("../../../lib/secure");
 var secure = new Secure();
 
 exports.index = function(req, res) {
