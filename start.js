@@ -1,8 +1,3 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express');
 var http = require('http');
 var mongoose = require('mongoose');
