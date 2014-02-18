@@ -1,6 +1,8 @@
-var Source = require("../models/source");
+var Source = require("../../sources/models");
+var app = require("../../../app");
+exports = module.exports;
 
-exports.index = function(req, res) {
+exports.dashboard = function(req, res) {
 	var query = Source.find({}).limit(50);
 	
 	query.exec(function(err, result) {
@@ -14,5 +16,6 @@ exports.index = function(req, res) {
 				sources: result
 			})
 		}
-	});
+	});	
 }
+

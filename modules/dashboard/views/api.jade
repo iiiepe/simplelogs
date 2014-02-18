@@ -1,0 +1,108 @@
+extends ../../../views/layout
+
+block content
+	div#page-wrapper-fluid
+		div.container-fluid
+			div.row
+				div.col-lg-12
+					h1.page-header= title
+			div.row
+				div.col-lg-8
+					p.help-block SimpleLogs consists of a very simple application to let you log, everything is REST API based so a simple JSON POST will let you save your logs. All API calls should be made using valid JSON, otherwise it will fail.
+					br
+					h3 Logs
+					hr
+					h4 GET /api/logs
+					p.help-block Returns the most recent 100 logs. You can use different parameters to search.
+					table.table
+						thead
+							th Parameters
+							th
+						tbody
+							tr
+								td Limit
+								td Specifies the number of logs to get, example: /api/logs?limit=25
+							tr
+								td From / To
+								td By default, SimpleLogs will return the most recent 100 logs but you can search by time, you need a date to start and a date to finish in UNIX timestamp.help-block (seconds, not miliseconds), both "from" and "to" are required example: /api/logs?from=389712600&to=1357018200
+							tr
+								td Source
+								td The source of the log. Example: /api/logs?source=mi-application
+							tr
+								td Type
+								td The type of log to search for. Example: /api/logs?type=Info
+							tr
+								td Tag
+								td You can search for a tag or multiple, send a string or an array, if you send an array SimpleLogs will interpret as tag1 AND tag2. Example: /api/logs?tag=production
+					hr
+					h4 GET /api/logs/:id
+					p.help-block Returns a specific log given it's ID. This request does not accept parameters.
+					hr
+					h4 POST /api/logs/
+					p.help-block Saves a new log. The object sent must be valid JSON and both the "source" and "accessKey" properties must exist in the sources.
+					table.table
+						thead
+							th Parameters
+							th
+						tbody
+							tr
+								td message
+								td The message of the log
+							tr
+								td type
+								td A string with the type of log, recommended options are: Info, Warning, Error, Emergency, Notice, Debug
+							tr
+								td source
+								td A string with the source of the log. This source must be added first and must match the accessKey.
+							tr
+								td tag
+								td A string or array with tags. Use tags to organize your logs.
+							tr
+								td accessKey
+								td A string with the accessKey that matches the source
+					h5 Example:
+					div.well
+						|	{
+						br
+						|  	"message": "There was a problem uploading the file ",
+						br
+						|		"accessKey": "6619d514dac8a9adc5a827451960dd25",
+						br
+						|		"type": "Error",
+						br
+						|		"tags": ["live", "simplelogs-is-cool", "my-application-live"],
+						br
+						|		"source": "my-application"
+						br
+						|	}
+					br
+					h3 Sources
+					hr
+					p.help-block In order to identify logs and prevent unwanted write operations, SimpleLogs uses a system to authenticate the source using a name and an access key. Before accepting logs, a source needs to be created so every log can be sent with the name and the access key generated.
+					br
+					h4 GET /api/sources
+					p.help-block Shows all sources created
+					table.table
+						thead
+							th Parameters
+							th
+						tbody
+							tr
+								td limit
+								td The limit of sources to get
+					hr
+					h4 GET /api/sources/:name
+					p.help-block Returns a source object given it's name. This request does not accept parameters. Example: /api/source/my-application
+					hr
+					h4 POST /api/sources
+					p.help-block Creates a new source and returns the new source created with the accessKey generated.
+					table.table
+						thead
+							th Parameters
+							th
+						tbody
+							tr
+								td name
+								td The name of the application that will send logs. No special characters allowed.
+						
+
