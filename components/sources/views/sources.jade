@@ -1,0 +1,45 @@
+extends /layout
+
+block content
+	script(type="text/template", class="sourceForm")
+		form(role="form")
+			div.form-group
+				label(for="name") Source name
+				input(type="text", name="name", id="name").form-control
+				div.help-block Enter a name for the new source.
+	script(type="text/template", class="sourceResult")
+		div
+			div.alert.alert-success
+				p New source created successfully.
+			div.form-group
+				label Source name
+				div.form-control <%= name %>
+			div.form-group
+				label Access Key
+				div.form-control <%= accessKey %>
+	div#page-wrapper-fluid
+		div.container-fluid
+			div.row
+				div.col-lg-12
+					h1.page-header= title
+						button().btn.btn-primary.pull-right.add-source New source
+			div.row
+				div.col-lg-12
+					table.table.table-striped.table-hover
+						thead
+							th Source name
+							th Access Key
+						tbody
+							each source in sources
+								tr
+									td #{source.name}
+									td #{source.accessKey}
+
+block scripts
+	script(src="js/Models/Source.js")
+	script(src="js/Views/SourceView.js")
+	script(type="text/javascript").
+		(function() {
+			// Initialize view
+			new App.Views.SourceView({el: $("#page-wrapper-fluid")});
+		})();

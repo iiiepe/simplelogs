@@ -1,7 +1,7 @@
 {
   "name": "simplelogs",
   "version": "0.1.0",
-  "main": "public/stylesheets/style.css",
+  "main": "public/css/style.css",
   "dependencies": {
     "jquery": "1.11.0",
     "bootstrap": "3.1.0",
@@ -9,6 +9,10 @@
     "underscore": "1.5.2",
     "flot": "0.8.2",
     "raphael": "2.1.0",
-    "momentjs": "~2.5.1"
+    "momentjs": "~2.5.1",
+    "backbone.bootstrap-modal": "https://github.com/powmedia/backbone.bootstrap-modal/archive/bootstrap3.zip",
+    "typeahead.js": "*",
+    "requirejs": "*",
+    "backbone.marionette": "*"
   }
 }
