@@ -80,5 +80,12 @@ exports.postSource = function(req, res) {
 }
 
 exports.deleteSource = function(req, res) {
- 
+ 	Source.remove({_id: req.body.id}, function(err) {
+ 		if(err) {
+ 			res.send(406, err);
+ 		}
+ 		else {
+ 			res.send(200);
+ 		}
+ 	})
 }

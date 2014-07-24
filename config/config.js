@@ -1,7 +1,7 @@
 var config = {}
 
 // Components enabled, do not change
-config.components = ["help", "logs-api", "sources", "sources-api", "users-api"];
+config.components = ["logs-api", "sources-api", "users-api"];
 
 // secret key, change it to encrypt your strings using this key
 config.secretKey = "The monkey is on the tree";
