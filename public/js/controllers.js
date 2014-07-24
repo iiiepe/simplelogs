@@ -45,7 +45,9 @@ app.controller("ModalSourceControllerInstance", function($scope, $modalInstance,
 });
 
 // controller to list logs
-app.controller("ListLogs", function($scope, Logs, socket) {
+app.controller("ListLogs", function($scope, Logs, socket, filterService) {
+	$scope.filterService = filterService;
+
 	Logs.index(function(data) {
 		$scope.logs = data;
 	});
@@ -54,6 +56,14 @@ app.controller("ListLogs", function($scope, Logs, socket) {
 	socket.on("logs:new", function(data) {
 		$scope.logs.unshift(data);
 	})
+});
+
+app.controller("FilterController", function($scope, filterService) {
+	$scope.filterService = filterService;
+
+	$scope.clearSearchText = function() {
+		$scope.filterService.searchText = "";
+	}
 });
 
 /**

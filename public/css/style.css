@@ -29,8 +29,11 @@ div.labels .label {
   margin-bottom: 0.25em;
 }
 div.vertical-space {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+    clear: both;
+    display: block;
+    margin-bottom: 2em;
+    margin-top: 1em;
+    overflow: hidden;
 }
 #page-wrapper-fluid {
   padding: 0 15px;

@@ -1,5 +1,17 @@
+div(ng-controller="FilterController")
+	form(role="form").form-horizontal
+		div.col-lg-12
+			div.input-group.input-group-lg
+				input(type="text", id="searchTextBox", ng-model="filterService.searchText").form-control
+				span.input-group-addon
+					span.glyphicon.glyphicon-search
+				span.input-group-addon
+					span(ng-click="clearSearchText()").glyphicon.glyphicon-remove-sign
+
+div.vertical-space
+
 div(ng-controller="ModalLogController").col-lg-12
-	div(ng-repeat="log in logs").row.log-row
+	div(ng-repeat="log in logs | filter:filterService.searchText").row.log-row
 		div.col-lg-3
 			div(am-preprocess="unix").timestamp {{log.timestamp | amDateFormat: 'D/M/YY, h:mm:ss a'}}
 		div.col-lg-8

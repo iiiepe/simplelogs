@@ -39,3 +39,10 @@ app.factory("socket", function($rootScope) {
 		}
 	}
 });	
+
+app.factory("filterService", function() {
+	return {
+		activeFilters: {},
+		searchText: ''
+	}
+});
