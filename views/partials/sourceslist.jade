@@ -1,0 +1,27 @@
+div.row
+	div.pull-right
+		button(ng-click="addSource()").btn.btn-primary Add source
+
+div.row
+	div.col-lg-12
+		table.table.table-striped
+			thead
+				th Name
+				th Access Key
+			tbody
+				tr(ng-repeat="source in sources")
+					td {{source.name}}
+					td {{source.accessKey}}
+
+script(type="text/ng-template", id="modalAddSource")
+	form(type="form", name="addSourceForm")
+		div.modal-header
+			h3 Add source
+			div.help-block Add a new source from which the logs will come from
+		div.modal-body
+				div.form-group
+					label(for="name") Name:
+					input(type="text", name="name", ng-model="source.name").form-control
+		div.modal-footer
+			button(ng-click="ok()", ng-disabled="!addSourceForm.$valid").btn.btn-success Save
+			button(ng-click="cancel()").btn.btn-warning Close

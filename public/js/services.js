@@ -1,15 +1,25 @@
 /**
  * Handle the logs connection
  */
-app.factory("Logs", function($resource) {
-	var Logs = $resource(app.baseUrl + "/api/logs/:id", {
+app.service("Logs", function($resource) {
+	var Resource = $resource(app.baseUrl + "/api/logs/:id", {
 		
 	}, {
 		index: {method: "GET", isArray: true},
 		get: {method: "GET", isArray: false}
 	});
 
-	return Logs;
+	return Resource;
+});
+
+app.service("Sources", function($resource) {
+	var Resource = $resource("/api/sources/:id", {}, {
+		index: {method: "GET", isArray: true},
+		get: {method: "GET", isArray: false},
+		create: {method: 'POST'}
+	});
+
+	return Resource;
 });
 
 /**

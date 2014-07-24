@@ -1,3 +1,50 @@
+// Controls the menu
+app.controller("MenuController", function($scope, $location) {
+	$scope.menuClass = function(page) {
+    var current = $location.path().substring(1);
+    return page === current ? "active" : "";
+  };
+});
+
+// controller to lists sources
+app.controller("ListSources", function($scope, $modal, $log, Sources) {
+	/// call the index method and update the $scope.sources with the new data
+	Sources.index(function(data) {
+		$scope.sources = data;
+	});
+
+	// respond to the addSource event
+	$scope.addSource = function() {
+		var modal = $modal.open({
+			templateUrl: "modalAddSource",
+			controller: "ModalSourceControllerInstance",
+			size: "sm",
+			scope: $scope // Pass the current scope
+		});
+	}
+});
+
+// handle the modal instance created on ListSources
+app.controller("ModalSourceControllerInstance", function($scope, $modalInstance, Sources) {
+	// take the model source
+	$scope.source = {};
+
+	// On save create the new data, wait for the new model and then update
+	// the $scope.sources by adding the new data to the end of the array
+	$scope.ok = function() {
+		Sources.create($scope.source, function(data) {
+			$scope.sources.push(data);
+			$modalInstance.close();
+		});
+
+	}
+
+	$scope.cancel = function() {
+		$modalInstance.dismiss("cancel");
+	}
+});
+
+// controller to list logs
 app.controller("ListLogs", function($scope, Logs, socket) {
 	Logs.index(function(data) {
 		$scope.logs = data;
@@ -7,17 +54,6 @@ app.controller("ListLogs", function($scope, Logs, socket) {
 	socket.on("logs:new", function(data) {
 		$scope.logs.unshift(data);
 	})
-});
-
-app.controller("ListSources", function($scope) {
-
-});
-
-app.controller("MenuController", function($scope, $location) {
-	$scope.menuClass = function(page) {
-    var current = $location.path().substring(1);
-    return page === current ? "active" : "";
-  };
 });
 
 /**
@@ -30,7 +66,7 @@ app.controller("ModalLogController", function($scope, $modal, $log, Logs) {
 
 			var modal = $modal.open({
 				templateUrl: "modalLog",
-				controller: "ModalInstanceController",
+				controller: "ModalLogInstanceController",
 				size: "lg",
 				resolve: {
 					item: function() {
@@ -48,7 +84,7 @@ app.controller("ModalLogController", function($scope, $modal, $log, Logs) {
 	}
 });
 
-app.controller("ModalInstanceController", function($scope, $modalInstance, item) {
+app.controller("ModalLogInstanceController", function($scope, $modalInstance, item) {
 	$scope.item = item;
 
 	$scope.ok = function() {
@@ -59,3 +95,4 @@ app.controller("ModalInstanceController", function($scope, $modalInstance, item)
 		$modalInstance.dismiss("cancel");
 	}
 });
+
