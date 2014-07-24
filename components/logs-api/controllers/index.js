@@ -54,7 +54,7 @@ exports.index = function(req, res) {
 		}
 
 		if(results) {
-			res.send(200, results);
+			res.jsonp(results, 200);
 		}
 	});
 }
@@ -70,7 +70,7 @@ exports.getLog = function(req, res) {
 		}
 
 		if(result) {
-			res.send(200, result);
+			res.jsonp(200, result);
 		}
 	})
 }
@@ -106,8 +106,8 @@ exports.postLog = function(req, res) {
 						}
 				
 						if(result) {
-                          app.emit("logs:new", result);
-						  res.send(201, result);			
+							app.emit("logs:new", result);
+						  res.jsonp(201, result);			
 						}
 					});
 				}

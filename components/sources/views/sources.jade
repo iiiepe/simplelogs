@@ -34,12 +34,3 @@ block content
 								tr
 									td #{source.name}
 									td #{source.accessKey}
-
-block scripts
-	script(src="js/Models/Source.js")
-	script(src="js/Views/SourceView.js")
-	script(type="text/javascript").
-		(function() {
-			// Initialize view
-			new App.Views.SourceView({el: $("#page-wrapper-fluid")});
-		})();

@@ -1,36 +1,16 @@
-div#wrapper
-  nav(role="navigation", style="margin-bottom: 0").navbar.navbar-default.navbar-static-top
-    div.container-fluid
-      <!-- Brand and toggle get grouped for better mobile display -->
-      div.navbar-header    
-        button(type="button", data-toggle="collapse", data-target="#navbar").navbar-toggle
-          span.sr-only Toggle navigation
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-        a(href="#").navbar-brand SimpleLogs
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      div.collapse.navbar-collapse#navbar
-        ul.nav.navbar-nav
-          li.active
-            a(href="/dashboard") Dashboard
-          li
-            a(href="/sources") Sources
-        ul.nav.navbar-nav.navbar-right
-          li.dropdown
-            a(href="/help", data-toggle="dropdown").dropdown-toggle
-              span Help
-                b.caret
-            ul.dropdown-menu
-              li
-                a(href="/help/api") API
-          li.dropdown
-            a(href="#", data-toggle="dropdown").dropdown-toggle
-              span Me
-                b.caret
-            ul.dropdown-menu
-              li
-                a(href="#") Settings
-              li
-                a(href="#") Log out
+nav(role="navigation", ng-controller="MenuController").navbar.navbar-inverse.navbar-fixed-top
+	div.container
+		div.navbar-header
+			button(type="button", data-toggle="collapse", data-target="menu-navbar-collapse").navbar-toggle
+				span.sr-only Toggle navigation
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
+		div.navbar-collapse#menu-navbar-collapse
+			ul.nav.navbar-nav
+				li(ng-class="menuClass('dashboard')")
+					a(href="#/dashboard") Dashboard
+				li(ng-class="menuClass('sources')")
+					a(href="#/sources") Sources
+				li(ng-class="menuClass('about')")
+					a(href="#/api") API

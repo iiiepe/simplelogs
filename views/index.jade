@@ -1,8 +1,7 @@
-extends layout
+extends /layout
 
 block content
-  div.container-fluid
-    div.row
-      div.col-lg-12
-        h1.page-header= title
-        p Welcome to #{title}
+	div.container
+		div.row
+			div.col-lg-12
+				div(ng-view)

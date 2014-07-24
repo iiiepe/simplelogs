@@ -1,0 +1,36 @@
+div(ng-controller="ModalLogController").col-lg-12
+	div(ng-repeat="log in logs").row.log-row
+		div.col-lg-3
+			div(am-preprocess="unix").timestamp {{log.timestamp | amDateFormat: 'D/M/YY, h:mm:ss a'}}
+		div.col-lg-8
+			div.message {{log.message}}
+			div.labels
+				span.label.label-primary {{log.source}}
+				span(ng-repeat="tag in log.tags").label.label-default {{tag}}
+		div.col-lg-1
+			button(ng-click="openModal(log._id)").pull-right.btn.btn-primary.btn-xs.view-log View
+
+script(type="text/ng-template", id="modalLog")
+	div.modal-body
+		div.row
+			div.col-lg-12
+				p.modal-message {{item.message}}
+		table.table.table-sm
+			tbody
+				tr
+					td Created
+					td(am-preprocess="unix") {{item.timestamp | amDateFormat: 'DD/MMMM/YYYY, h:mm:ss a'}}
+				tr
+					td Type
+					td
+						span.label.label-default {{item.type}}
+				tr
+					td Source
+					td
+						span.label.label-primary {{item.source}}
+				tr
+					td Tags
+					td
+						span(ng-repeat="tag in item.tags").label.label-default {{tag}}
+	div.modal-footer
+		button(ng-click="cancel()").btn.btn-success Close

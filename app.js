@@ -27,6 +27,26 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+// app.all('*', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   next();
+// });
+
+app.get("/", function(req, res) {	
+	res.render("index", {
+		title: "Dashboard"
+	})
+});
+
+// Used to serve html static files to angular.js
+// The files are in the views/partials directory
+app.get("/html/:name", function(req, res) {
+	var name = req.params.name;
+	res.render("partials/" + name);
+});
+
+
 /** 
  * Autodetect all views in components 
  */
