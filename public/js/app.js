@@ -14,13 +14,13 @@ function router($routeProvider) {
     })
     .when("/sources", {
       controller: "ListSources",
-      templateUrl: "html/sourceslist.html"
+      templateUrl: "html/sourceslist"
     })
     .when("/api", {
       templateUrl: "html/api"
     })
     .when("/404", {
-      templateUrl: "html/404.html"
+      templateUrl: "html/404"
     })
     .otherwise({
       redirectTo: "/404"

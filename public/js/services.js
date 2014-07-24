@@ -1,3 +1,6 @@
+/**
+ * Handle the logs connection
+ */
 app.factory("Logs", function($resource) {
 	var Logs = $resource(app.baseUrl + "/api/logs/:id", {
 		
@@ -9,6 +12,9 @@ app.factory("Logs", function($resource) {
 	return Logs;
 });
 
+/**
+ * Handle the socket.io connection
+ */
 app.factory("socket", function($rootScope) {
 	var socket = io.connect();
 	return {
