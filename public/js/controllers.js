@@ -56,6 +56,27 @@ app.controller("ModalSourceControllerInstance", function($scope, $modalInstance,
 	}
 });
 
+function classType(item) {
+		if(item == "error") {
+			return "label-danger";
+		}
+		if(item == "Error") {
+			return "label-danger";
+		}
+		else if(item == "notice") {
+			return "label-info";
+		}
+		else if(item == "warning") {
+			return "label-warning";
+		}
+		else if(item == "success") {
+			return "label-success";
+		}
+		else {
+			return "label-default";
+		}
+}
+
 // controller to list logs
 app.controller("ListLogs", function($scope, Logs, socket, filterService) {
 	$scope.filterService = filterService;
@@ -67,8 +88,13 @@ app.controller("ListLogs", function($scope, Logs, socket, filterService) {
 	// When the event is emmited, add the data to the array $scope.logs at the beginning
 	socket.on("logs:new", function(data) {
 		$scope.logs.unshift(data);
-	})
+	});
+
+	$scope.classType = function(item) {
+		return classType(item);
+	}
 });
+
 
 app.controller("FilterController", function($scope, filterService) {
 	$scope.filterService = filterService;
@@ -115,6 +141,10 @@ app.controller("ModalLogInstanceController", function($scope, $modalInstance, it
 
 	$scope.cancel = function() {
 		$modalInstance.dismiss("cancel");
+	}
+
+	$scope.classType = function(item) {
+		return classType(item);
 	}
 });
 

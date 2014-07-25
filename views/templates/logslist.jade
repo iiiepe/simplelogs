@@ -16,7 +16,7 @@ div(ng-controller="ModalLogController").col-lg-12
 			div.message {{log.message}}
 			div.labels
 				span.label.label-primary {{log.source}}
-				span(ng-repeat="tag in log.tags").label.label-default {{tag}}
+				span(ng-repeat="tag in log.tags", ng-class="classType(tag)").label.label-default {{tag}}
 		div.col-lg-1
 			button(ng-click="openModal(log._id)").pull-right.btn.btn-primary.btn-xs.view-log View
 
@@ -33,7 +33,7 @@ script(type="text/ng-template", id="modalLog")
 				tr
 					td Type
 					td
-						span.label.label-default {{item.type}}
+						span(ng-class="classType(item.type)").label {{item.type}}
 				tr
 					td Source
 					td
@@ -41,6 +41,6 @@ script(type="text/ng-template", id="modalLog")
 				tr
 					td Tags
 					td.labels
-						span(ng-repeat="tag in item.tags").label.label-default {{tag}}
+						span(ng-repeat="tag in item.tags", ng-class="classType(tag)").label.label-default {{tag}}
 	div.modal-footer
 		button(ng-click="cancel()").btn.btn-success Close
