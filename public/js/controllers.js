@@ -22,6 +22,18 @@ app.controller("ListSources", function($scope, $modal, $log, Sources) {
 			scope: $scope // Pass the current scope
 		});
 	}
+
+	$scope.deleteSource = function(selectedId) {
+		Sources.remove({id: selectedId},function(data) {
+			var selected = {_id: selectedId};
+			var sourcesWithoutTheRemovedElement = $scope.sources.filter(function(selected) {
+				return selected._id !== selectedId;
+			});
+	
+			$scope.sources = sourcesWithoutTheRemovedElement;
+		});
+	}
+
 });
 
 // handle the modal instance created on ListSources

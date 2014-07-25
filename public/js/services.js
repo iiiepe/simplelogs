@@ -16,7 +16,8 @@ app.service("Sources", function($resource) {
 	var Resource = $resource("/api/sources/:id", {}, {
 		index: {method: "GET", isArray: true},
 		get: {method: "GET", isArray: false},
-		create: {method: 'POST'}
+		create: {method: 'POST'},
+		remove: {method: "DELETE"}
 	});
 
 	return Resource;

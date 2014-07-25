@@ -6,12 +6,16 @@ div.row
 		hr
 		table.table.table-striped
 			thead
+				th ID
 				th Name
 				th Access Key
 			tbody
 				tr(ng-repeat="source in sources")
+					td {{source._id}}
 					td {{source.name}}
 					td {{source.accessKey}}
+					td
+						button(ng-click="deleteSource(source._id)").btn.btn-xs.btn-danger Delete
 
 script(type="text/ng-template", id="modalAddSource")
 	form(type="form", name="addSourceForm")

@@ -28,9 +28,9 @@ exports.index = function(req, res) {
  * Get a source by name
  */
 exports.getSource = function(req, res) {
-	var name = req.params.name;
+	var id = req.params.id;
 	
-	var query = Source.findOne({"name": name}, function(err, result) {
+	var query = Source.findById(id, function(err, result) {
 		if(err) {
 			res.send(404, err);
 		}
@@ -38,7 +38,11 @@ exports.getSource = function(req, res) {
 		if(result) {
 			var send = result;
 
-			res.send(200, send);
+			res.jsonp(200, send);
+		}
+
+		else {
+			res.send(404, "Not found");
 		}
 	})
 }
@@ -47,10 +51,12 @@ exports.postSource = function(req, res) {
   var body = req.body;
 	
 	if(!body.name || typeof body.name === undefined || typeof body.name === "undefined") {
-		res.send(406, "Name is required and must be unique")
+		return res.send(406, "Name is required and must be unique")
 	}
+
+	var name = body.name.toLowerCase().replace(/[\*\^\'\!]/g, '').split(' ').join('-');
 	
-	Source.findOne({"name": body.name}, function(err, result) {
+	Source.findOne({"name": name}, function(err, result) {
 		if(err || result) {
 			res.send(406, "That name already exists, it must be unique");
 		}
@@ -60,8 +66,7 @@ exports.postSource = function(req, res) {
 			var accessKey = secure.encrypt(timestamp.toString());
 
 			// Not removing accents
-			var name = body.name.toLowerCase().replace(/[\*\^\'\!]/g, '').split(' ').join('-');
-
+			
 			var source = new Source({
 				name: name,
 				accessKey: accessKey
@@ -72,7 +77,7 @@ exports.postSource = function(req, res) {
 					res.send(406, err);
 				}
 				if(result) {
-					res.send(201, result);
+					res.jsonp(201, result);
 				}
 			})
 		}
@@ -80,7 +85,7 @@ exports.postSource = function(req, res) {
 }
 
 exports.deleteSource = function(req, res) {
- 	Source.remove({_id: req.body.id}, function(err) {
+	Source.remove({_id: req.params.id}, function(err) {
  		if(err) {
  			res.send(406, err);
  		}
