@@ -41,9 +41,9 @@ app.get("/", function(req, res) {
 
 // Used to serve html static files to angular.js
 // The files are in the views/partials directory
-app.get("/html/:name", function(req, res) {
+app.get("/templates/:name", function(req, res) {
 	var name = req.params.name;
-	res.render("partials/" + name);
+	res.render("templates/" + name);
 });
 
 

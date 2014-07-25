@@ -3,10 +3,8 @@ div(ng-controller="FilterController")
 		div.col-lg-12
 			div.input-group.input-group-lg
 				input(type="text", id="searchTextBox", ng-model="filterService.searchText").form-control
-				span.input-group-addon
-					span.glyphicon.glyphicon-search
-				span.input-group-addon
-					span(ng-click="clearSearchText()").glyphicon.glyphicon-remove-sign
+				span.input-group-btn
+					button(ng-click="clearSearchText()").btn.btn-warning Reset
 
 div.vertical-space
 

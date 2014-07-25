@@ -10,24 +10,24 @@ function router($routeProvider) {
     })
     .when("/dashboard", {
       controller: "ListLogs",
-      templateUrl: "html/logslist"
+      templateUrl: "templates/logslist"
     })
     .when("/sources", {
       controller: "ListSources",
-      templateUrl: "html/sourceslist"
+      templateUrl: "templates/sourceslist"
     })
     .when("/api", {
-      templateUrl: "html/api"
+      templateUrl: "templates/api"
     })
     .when("/404", {
-      templateUrl: "html/404"
+      templateUrl: "templates/404"
     })
     .otherwise({
       redirectTo: "/404"
     })
 }
 
-// Add the router to the configuration
+// Add the router to the configurationre
 app.config(router);
 
 // Configuration for angular/momentjs
