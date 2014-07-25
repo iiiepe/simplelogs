@@ -10,7 +10,7 @@ describe("Sources", function() {
 
 	var id;
 
-	it("Should create a new source gith a - instead of a space", function(done) {
+	it("Should create a new source with a - instead of a space", function(done) {
 		request
 			.post(baseUrl + "/api/sources")
 			.send({name: "mocha test"})

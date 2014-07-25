@@ -82,7 +82,7 @@ exports.postLog = function(req, res) {
   var body = req.body;	
   
   if(!body.accessKey || typeof body.accessKey === undefined || typeof body.accessKey === "undefined") {		
-		res.send(403, "No access key defined");
+		return res.send(403, "No access key defined");
 	}
 	else {
 		Source.findOne({"name": body.source}, function(err, result) {
@@ -112,7 +112,6 @@ exports.postLog = function(req, res) {
 					});
 				}
 				else {
-					console.log("The accessKey does not match the source of the log you're sending");
 					res.send(403, "The accessKey does not match the source of the log you're sending")
 				}
 			}
