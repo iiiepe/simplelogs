@@ -40,7 +40,7 @@ script(type="text/ng-template", id="modalLog")
 						span.label.label-primary {{item.source}}
 				tr
 					td Tags
-					td
+					td.labels
 						span(ng-repeat="tag in item.tags").label.label-default {{tag}}
 	div.modal-footer
 		button(ng-click="cancel()").btn.btn-success Close

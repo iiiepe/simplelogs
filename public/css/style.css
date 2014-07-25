@@ -24,7 +24,7 @@ a
 color #fff {
   text-decoration: none;
 }
-div.labels .label {
+.labels .label {
   float: left;
   margin-bottom: 0.25em;
 }
