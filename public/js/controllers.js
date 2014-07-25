@@ -78,21 +78,37 @@ function classType(item) {
 }
 
 // controller to list logs
-app.controller("ListLogs", function($scope, Logs, socket, filterService) {
+app.controller("ListLogs", function($scope, Logs, socket, filterService, $log) {
+	var limit = 100;
 	$scope.filterService = filterService;
 
-	Logs.index(function(data) {
+	Logs.index({limit: limit}, function(data) {
 		$scope.logs = data;
 	});
 
+	$scope.socketStatus = true;
+
 	// When the event is emmited, add the data to the array $scope.logs at the beginning
 	socket.on("logs:new", function(data) {
-		$scope.logs.unshift(data);
+		if($scope.socketStatus) {
+			$scope.logs.unshift(data);
+			$scope.logs.pop();
+		}
 	});
 
 	$scope.classType = function(item) {
 		return classType(item);
-	}
+	};
+
+	// Toggles the status of the socketStatus
+  $scope.toggleActivation = function() {
+    $scope.socketStatus = !$scope.socketStatus;
+  }
+
+  // depending on the status of socketStatus adds the right classes to the buttons
+  $scope.toggleSocketButtonClass = function() {
+  	return $scope.socketStatus ? "btn-success glyphicon glyphicon-volume-up" : "btn-danger glyphicon glyphicon-volume-off";
+  }
 });
 
 
@@ -147,4 +163,3 @@ app.controller("ModalLogInstanceController", function($scope, $modalInstance, it
 		return classType(item);
 	}
 });
-
