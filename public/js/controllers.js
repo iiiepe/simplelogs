@@ -66,10 +66,19 @@ function classType(item) {
 		else if(item == "notice") {
 			return "label-info";
 		}
+		else if(item == "Notice") {
+			return "label-info";	
+		}
 		else if(item == "warning") {
 			return "label-warning";
 		}
+		else if(item == "Warning") {
+			return "label-warning";
+		}
 		else if(item == "success") {
+			return "label-success";
+		}
+		else if(item == "Success") {
 			return "label-success";
 		}
 		else {
