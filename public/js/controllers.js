@@ -60,7 +60,7 @@ function classType(item) {
 		if(item == "error") {
 			return "label-danger";
 		}
-		if(item == "Error") {
+		else if(item == "Error") {
 			return "label-danger";
 		}
 		else if(item == "notice") {
