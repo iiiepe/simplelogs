@@ -1,36 +1,15 @@
-serf:
-  image: luis/serf
-  expose:
-   - "7373"
-   - "7946"
-  ports: 
-   - "7373:7373"
-   - "7946:7946"
 web:
-  image: luis/nodejs-serf
+  image: luis/nodejs
   links:
-   - serf:serf
    - mongodb:mongodb
-  expose:
-   - "3000"
+  ports:
+   - "3000:3000"
   volumes:
-   - "/var/www/simplelogs:/var/www"
-   - "/var/log/docker:/var/log/supervisor"
+   - application:/var/www
+   - /var/log/docker/simplelogs:/var/log/supervisor
   environment:
    MONGODB_DATABASE: simplelogs
 mongodb:
   image: luis/mongodb
   expose:
    - "27017"
-  volumes:
-   - "/home/docker/mongodb-simplelogs:/data/db"
-lb:
-  image: luis/nginx-lb
-  ports:
-    - "80:80"
-  links:
-    - serf:serf
-  volumes:
-   - "/var/nginx/db.iiiepe.net:/etc/nginx/sites-enabled"
-   - "/var/www/simplelogs:/var/www"
-   - "/var/log/docker:/var/log/supervisor"
