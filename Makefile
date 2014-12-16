@@ -1,6 +1,9 @@
+CURRENT_DIRECTORY := $(shell pwd)
 
 install:
-	@fig run --rm web npm install
+	@docker run --rm \
+	-v $(CURRENT_DIRECTORY)/application:/var/www \
+	luis/nodejs npm install
 
 build:
 	@fig run --rm web npm install
